@@ -14,9 +14,11 @@ page {
   font-size: 30rpx;
   color: #b5272d;
 }
-.iphoneCon .top-edit-btn{
-  top:108rpx;
+
+.iphoneCon .top-edit-btn {
+  top: 108rpx;
 }
+
 .title-box {
   margin-top: 25%;
   font-size: 28rpx;
@@ -72,12 +74,12 @@ page {
   width: 870rpx;
   box-sizing: border-box;
   transition: margin-left 0.2s ease-in-out;
-  background: url(https://cdn.it120.cc/apifactory/2018/03/07/8ecdab31cfc3ccda44edd7bebfbdd45f.png) no-repeat 30rpx center;
+  background: url(http://img.fecshop.com/wx/circle@noselected.png) no-repeat 30rpx center;
   background-size: 34rpx auto;
 }
 
 .a-goods-conts.active {
-  background: url(https://cdn.it120.cc/apifactory/2018/03/07/d14e39b0a699114fe29c1a8614f6dbec.png) no-repeat 30rpx center;
+  background: url(http://img.fecshop.com/wx/circle@selected.png) no-repeat 30rpx center;
   background-size: 34rpx auto;
 }
 
@@ -223,7 +225,7 @@ page {
   background-color: #ccc;
 }
 
-.jiesuan-box  .left-price {
+.jiesuan-box .left-price {
   display: flex;
   width: 510rpx;
   justify-content: space-between;
@@ -236,12 +238,12 @@ page {
 .jiesuan-box .all-selected {
   padding-left: 90rpx;
   color: #000;
-  background: url(https://cdn.it120.cc/apifactory/2018/03/07/8ecdab31cfc3ccda44edd7bebfbdd45f.png) no-repeat 30rpx center;
+  background: url(http://img.fecshop.com/wx/circle@noselected.png) no-repeat 30rpx center;
   background-size: 34rpx auto;
 }
 
 .jiesuan-box .all-selected.active {
-  background: url(https://cdn.it120.cc/apifactory/2018/03/07/d14e39b0a699114fe29c1a8614f6dbec.png) no-repeat 30rpx center;
+  background: url(http://img.fecshop.com/wx/circle@selected.png) no-repeat 30rpx center;
   background-size: 34rpx auto;
 }
 

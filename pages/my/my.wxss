@@ -20,9 +20,21 @@ page {
   width: 100%;
   height: 400rpx;
   text-align: center;
-  /* background-image: url(https://cdn.it120.cc/apifactory/2018/03/07/fb8857533553034ee28c92bd0dd89b15.jpg); */
-  background-size: 100% 115%;
   position: relative;
+}
+
+.userinfo-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.userinfo image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
 }
 
 .userinfo button {
@@ -44,37 +56,20 @@ page {
 
 .iser-info-box {
   height: 100rpx;
-	text-align: center;
-	display: block;
+  text-align: center;
+  display: block;
 }
 
 .userinfo-nickname {
   color: #fff;
   font-size: 32rpx;
-	text-align: center;
-	margin-bottom: 10rpx;
-	display: block;
-}
-
-.userinfo-score {
-  font-size: 24rpx;
-  margin-top: 5px;
-  background-color: #b3a078;
-  color: #fff;
-  padding: 1px 5px;
-  border-radius: 2px;
-}
-
-.userinfo-score-day {
-  font-size: 24rpx;
-  margin-top: 5px;
-  color: #fff;
+  text-align: center;
+  margin-bottom: 10rpx;
+  display: block;
 }
 
 .userinfo-item {
   width: 100%;
-  /* background: url(https://cdn.it120.cc/apifactory/2018/03/02/bccdaf7292464a539efa6a1ea9a11ee6.png) no-repeat 750rpx center; */
-  background-size: 16rpx auto;
   border-bottom: 1px solid #fbfbfb;
   line-height: 100rpx;
   padding-left: 30px;
@@ -95,11 +90,23 @@ page {
   font-size: 30rpx;
 }
 
+.userinfo-item navigator image {
+  height: 36rpx;
+  width: 20rpx;
+  float: right;
+  margin: 32rpx 30rpx 0 0;
+}
+
+.userinfo-item navigator text {
+  font-size: 24rpx;
+  color: #999;
+}
+
 .user-cart-list {
   background-color: #fff;
   width: 100%;
   text-align: center;
-  margin-bottom: 10px;
+  margin: 10px 0px;
 }
 
 .cart-list {
@@ -213,7 +220,7 @@ page {
   display: flex;
   background-color: #fff;
   align-items: center;
-  width:100%;
+  width: 100%;
   height: 80rpx;
   margin-bottom: 20rpx;
 }
@@ -233,7 +240,7 @@ page {
   color: #ab2b2b;
 }
 
-.login button{
+.login button {
   width: 690rpx;
   height: 80rpx;
   line-height: 80rpx;

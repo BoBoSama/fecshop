@@ -13,7 +13,7 @@ Page({
     language: '',
     //语言 - end
 
-		bodyHeight:null
+    bodyHeight: null
   },
   // 语言 
   // 设置language变量（翻译Object）
@@ -61,7 +61,7 @@ Page({
     var that = this;
     var orderId = e.currentTarget.dataset.id;
     wx.showModal({
-      title: that.data.language.is_sure_cancel_order   , //'确定要取消该订单吗？',  // Are you sure you want to cancel the order?
+      title: that.data.language.is_sure_cancel_order, //'确定要取消该订单吗？',  // Are you sure you want to cancel the order?
       content: '',
       success: function (res) {
         if (res.confirm) {
@@ -171,44 +171,44 @@ Page({
     })
   },
   */
-	toConfirmTap:function(e){
-	  let that = this;
-	  let orderId = e.currentTarget.dataset.id;
-	  let formId = e.detail.formId;
-	  wx.showModal({
+  toConfirmTap: function (e) {
+    let that = this;
+    let orderId = e.currentTarget.dataset.id;
+    let formId = e.detail.formId;
+    wx.showModal({
       title: that.data.language.confirm_receive_product,  // '确认您已收到商品？',  // Confirm that you have received the item?
-	      content: '',
-	      success: function(res) {
-	        if (res.confirm) {
-	          wx.showLoading();
-	          wx.request({
-	            url: app.globalData.urls + '/customer/order/delivery',
-	            data: {
-	              orderId: orderId
-	            },
-              header: app.getRequestHeader(),
-	            success: (res) => {
-	              if (res.data.code == 200) {
-	                that.onShow();
-	                // 模板消息，提醒用户进行评价
-	                let postJsonString = {};
-	                postJsonString.keyword1 = { value: that.data.orderDetail.orderInfo.orderNumber, color: '#173177' }
-                  let keywords2 = that.data.language.confirm_and_next_come; // '您已确认收货，期待您的再次光临！';
-	                //if (app.globalData.order_reputation_score) {
-	                //  keywords2 += '立即好评，系统赠送您' + app.globalData.order_reputation_score +'积分奖励。';
-	                //}
-	                postJsonString.keyword2 = { value: keywords2, color: '#173177' }
-	                app.sendTempleMsgImmediately(app.siteInfo.assessorderkey , formId,
-	                  '/pages/order-detail/order-detail?id=' + orderId, JSON.stringify(postJsonString));
-	              }
-                app.saveReponseHeader(res);
-                wx.hideLoading();
-	            }
-	          })
-	        }
-	      }
-	  })
-	},
+      content: '',
+      success: function (res) {
+        if (res.confirm) {
+          wx.showLoading();
+          wx.request({
+            url: app.globalData.urls + '/customer/order/delivery',
+            data: {
+              orderId: orderId
+            },
+            header: app.getRequestHeader(),
+            success: (res) => {
+              if (res.data.code == 200) {
+                that.onShow();
+                // 模板消息，提醒用户进行评价
+                let postJsonString = {};
+                postJsonString.keyword1 = { value: that.data.orderDetail.orderInfo.orderNumber, color: '#173177' }
+                let keywords2 = that.data.language.confirm_and_next_come; // '您已确认收货，期待您的再次光临！';
+                //if (app.globalData.order_reputation_score) {
+                //  keywords2 += '立即好评，系统赠送您' + app.globalData.order_reputation_score +'积分奖励。';
+                //}
+                postJsonString.keyword2 = { value: keywords2, color: '#173177' }
+                app.sendTempleMsgImmediately(app.siteInfo.assessorderkey, formId,
+                  '/pages/order-detail/order-detail?id=' + orderId, JSON.stringify(postJsonString));
+              }
+              app.saveReponseHeader(res);
+              wx.hideLoading();
+            }
+          })
+        }
+      }
+    })
+  },
   onShow: function (e) {
     // 获取订单列表
     wx.showLoading();
@@ -221,7 +221,7 @@ Page({
     if (requestStatus == 0) {
       wxRequestOrderStatus = 'all'
     } else {
-      wxRequestOrderStatus = requestStatus -1;
+      wxRequestOrderStatus = requestStatus - 1;
     }
     //this.getOrderStatistics();
     wx.request({
@@ -232,7 +232,7 @@ Page({
       },
       header: app.getRequestHeader(),
       success: (res) => {
-				console.log(res)
+        console.log(res)
         wx.hideLoading();
         if (res.data.code == 200) {
           var orderList = res.data.data.orderList;
@@ -258,7 +258,7 @@ Page({
               } else if (order_status == 'completed') {
                 statusStr = that.data.language.order_complete //'已完成'
                 status = 3
-              } 
+              }
               orderListThis.push({
                 statusStr: statusStr,
                 id: order.increment_id,
@@ -268,11 +268,16 @@ Page({
                 remark: order.remark,
                 amountReal: order.grand_total,
                 product_items: order.item_products,
-                currency_symbol: order.currency_symbol
+                currency_symbol: order.currency_symbol,
+                hotelInfo: {
+                  hotelId: order.hotel_id,
+                  hotelName: order.hotel_name,
+                  hotelRoom: order.hotel_room
+                }
               })
             }
           }
-          
+
           that.setData({
             orderList: orderListThis,
             //logisticsMap: res.data.data.logisticsMap,
@@ -288,26 +293,26 @@ Page({
         app.saveReponseHeader(res);
       }
     })
-		var winInfo = wx.getSystemInfo({
-			success: function (res) {
-				var windowHeight = res.windowHeight;
-				var statusBarHeight = res.statusBarHeight;
-				var titleBarHeight = 0
-				if (res.model.indexOf('iPhone') !== -1) {
-					titleBarHeight = 44
-				} else {
-					titleBarHeight = 48
-				}
-				var query = wx.createSelectorQuery();
-				query.select('.status-box').boundingClientRect()
-				query.exec((res) => {
-				  var listHeight = res[0].height; // 获取list高度
-					that.setData({ bodyHeight: windowHeight - statusBarHeight - titleBarHeight - listHeight });
-				})
-				
-			
-			}
-		});
+    var winInfo = wx.getSystemInfo({
+      success: function (res) {
+        var windowHeight = res.windowHeight;
+        var statusBarHeight = res.statusBarHeight;
+        var titleBarHeight = 0
+        if (res.model.indexOf('iPhone') !== -1) {
+          titleBarHeight = 44
+        } else {
+          titleBarHeight = 48
+        }
+        var query = wx.createSelectorQuery();
+        query.select('.status-box').boundingClientRect()
+        query.exec((res) => {
+          var listHeight = res[0].height; // 获取list高度
+          that.setData({ bodyHeight: windowHeight - statusBarHeight - titleBarHeight - listHeight });
+        })
+
+
+      }
+    });
   },
   onHide: function () {
     // 生命周期函数--监听页面隐藏

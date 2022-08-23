@@ -25,13 +25,14 @@ Page({
 
     hasNoCoupons: true,
     youhuijine: 0, //优惠券金额
-    curCoupon: null // 当前选择使用的优惠券
+    curCoupon: null, // 当前选择使用的优惠券
+    hotelInfo: {} // 当前所处的hotel信息
   },
   onShow: function () {
     //console.log(this.data.orderType)
     var that = this;
     var shopList = [];
-    
+
     that.initCartInfo()
   },
   // 语言 
@@ -115,7 +116,7 @@ Page({
               mobile: resAddress.telephone,
             }
           }
-          
+
           var goodsList = [];
           var cart_info = res.data.data.cart_info;
           var products = cart_info.products;
@@ -176,6 +177,10 @@ Page({
             curCoupon = cart_info.coupon_code
           }
           console.log(shippings)
+
+          const hotelInfo = app.getHotelInfo()
+          console.log("hotelInfo:", hotelInfo)
+
           that.setData({
             hasNoCoupons: hasNoCoupons,
             youhuijine: youhuijine, //优惠券金额
@@ -188,14 +193,16 @@ Page({
             yunPrice: res.data.data.cart_info.shipping_cost,
             shippingIndex: shippingIndex,
             shippings: shippings,
-            
+
             curAddressData: curAddressData,
-            goodsList: goodsList
+            goodsList: goodsList,
+
+            hotelInfo: hotelInfo
           })
 
-          console.log("shippingIndex:~~")
-          console.log(shippingIndex)
+          console.log("shippingIndex:~~", shippingIndex)
           app.saveReponseHeader(res);
+
 
         }
         wx.hideLoading();
@@ -204,15 +211,15 @@ Page({
 
   },
 
-  
-  couponCodeSet: function(event) {
+
+  couponCodeSet: function (event) {
     this.setData({
       curCoupon: event.detail.value
     })
   },
 
-  
-  cancelCoupon: function() {
+
+  cancelCoupon: function () {
     var that = this
     var coupon_code = that.data.curCoupon
     if (coupon_code == "") {
@@ -249,7 +256,7 @@ Page({
     })
   },
 
-  addCoupon: function(){
+  addCoupon: function () {
     var that = this
     var coupon_code = that.data.curCoupon
     if (coupon_code == "") {
@@ -271,7 +278,7 @@ Page({
       method: 'POST',
       success: function (res) {
         if (res.data.code == '200') {
-          
+
         } else {  // 优惠券过期
           wx.showModal({
             title: that.data.language.warning, //'友情提示',
@@ -304,7 +311,7 @@ Page({
       shipping_method: shipping_method
     })
     console.log(shipping_method)
-    
+
     that.initCartInfo()
   },
 
@@ -330,20 +337,17 @@ Page({
     }
     return aaa;
   },
-  
+
   createOrder: function (e) {
     wx.showLoading();
     var that = this;
-    
+
     var remark = ""; // 备注信息
     if (e) {
       remark = e.detail.value.remark; // 备注信息 
     }
-    
-    var postData = {
-      order_remark: remark,
-      shipping_method: that.data.shipping_method,
-    };
+
+
     if (that.data.isNeedLogistics > 0) {
       if (!that.data.curAddressData) {
         wx.hideLoading();
@@ -355,43 +359,77 @@ Page({
         return;
       }
     }
-    
-    wx.request({
-      url: app.globalData.urls + '/checkout/onepage/wxsubmitorder',
-      method: 'POST',
-      header: app.getPostRequestHeader(),
-      data: postData, // 设置请求的 参数
-      success: (res) => {
-				// console.log(postData)
-        wx.hideLoading();
-        if (res.data.code == 1500002) {
-          wx.showModal({
-            title: '错误',
-            content: res.data.data.error,
-            showCancel: false
-          })
-          return;
-        } else if (res.data.code != 200) {
-          wx.showModal({
-            title: '错误',
-            content: '订单生成失败',
-            showCancel: false
-          })
-          return;
+
+    const hotelInfo = this.data.hotelInfo
+    // 订单是否包含酒店信息  包含了需要用户二次确认   不包含不允许下单
+    if (!hotelInfo.hotelId || !hotelInfo.hotelName) {
+      wx.hideLoading();
+      wx.showModal({
+        title: '友情提示',
+        content: '当前未绑定酒店信息，请重新扫描酒店二维码登录！',
+        showCancel: false
+      })
+      return;
+    } else {
+      wx.hideLoading();
+      wx.showModal({
+        title: '友情提示',
+        content: '当前订单将绑定到以下酒店，请确认是否正确！\n' + hotelInfo.hotelName + '-' + hotelInfo.hotelRoom,
+        success(res) {
+          if (res.confirm) {
+            var postData = {
+              order_remark: remark,
+              shipping_method: that.data.shipping_method,
+              hotel_id: hotelInfo.hotelId,
+              hotel_name: hotelInfo.hotelName,
+              hotel_room: hotelInfo.hotelRoom,
+            }
+            console.log(postData)
+            wx.request({
+              url: app.globalData.urls + '/checkout/onepage/wxsubmitorder',
+              method: 'POST',
+              header: app.getPostRequestHeader(),
+              data: postData, // 设置请求的 参数
+              success: (res) => {
+                // console.log(postData)
+                wx.hideLoading();
+                if (res.data.code == 1500002) {
+                  wx.showModal({
+                    title: '错误',
+                    content: res.data.data.error,
+                    showCancel: false
+                  })
+                  return;
+                } else if (res.data.code != 200) {
+                  wx.showModal({
+                    title: '错误',
+                    content: '订单生成失败',
+                    showCancel: false
+                  })
+                  return;
+                }
+                app.saveReponseHeader(res);
+                var orderIncrementId = res.data.data.increment_id;
+                var grand_total = res.data.data.grand_total;
+                var symbol = res.data.data.symbol;
+                wx.navigateTo({
+                  url: "/pages/success/success?order=" + orderIncrementId + "&money=" + grand_total + "&symbol=" + symbol + "&id=" + orderIncrementId
+                })
+
+                // "/pages/success/success?order=" + res.data.data.orderNumber + "&money=" + res.data.data.amountReal + "&id=" + res.data.data.id
+
+
+              }
+            })
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
         }
-        app.saveReponseHeader(res);
-        var orderIncrementId = res.data.data.increment_id;
-        var grand_total = res.data.data.grand_total;
-        var symbol = res.data.data.symbol;
-        wx.navigateTo({
-          url: "/pages/success/success?order=" + orderIncrementId + "&money=" + grand_total + "&symbol=" + symbol + "&id=" + orderIncrementId
-        })
-
-        // "/pages/success/success?order=" + res.data.data.orderNumber + "&money=" + res.data.data.amountReal + "&id=" + res.data.data.id
+      })
+      return;
+    }
 
 
-      }
-    })
   },
   /*
   initShippingAddress: function () {
@@ -466,7 +504,7 @@ Page({
       url: "/pages/address/address"
     })
   },
-  
+
   /*
   getMyCoupons: function () {
     var that = this;

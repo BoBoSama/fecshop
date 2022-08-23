@@ -9,41 +9,55 @@
 
 .address-box {
   width: 100%;
-  background: url(https://cdn.it120.cc/images/weappshop/arrow-right.png) no-repeat 705rpx center,
-                url(https://cdn.it120.cc/images/weappshop/addr-line.png) no-repeat center bottom;
-  background-size: 16rpx auto, 750rpx auto;
   background-color: #fff;
   margin: 20rpx 0;
 }
 
-.add-addres {
+.add-address {
   width: 100%;
+  display: flex;
+  padding-left: 60rpx;
+}
+
+.add-address image {
+  width: 40rpx;
+  height: 40rpx;
+  margin: 40rpx 0;
 }
 
 .add-address .title {
+  flex: 1;
   font-size: 28rpx;
   color: #000;
-  margin-left: 30rpx;
-  background: url(https://cdn.it120.cc/images/weappshop/ico-add-addr.png) no-repeat left center;
-  background-size: 60rpx auto;
-  padding: 40rpx 0 40rpx 90rpx;
+  margin-left: 20rpx;
+  padding: 40rpx 0;
 }
 
 .show-address {
   width: 664rpx;
+  display: flex;
   box-sizing: border-box;
-  padding-left: 100rpx;
-  background: url(https://cdn.it120.cc/images/weappshop/ico-addr.png) no-repeat 30rpx 35rpx;
-  background-size: 30rpx auto;
+  padding-left: 60rpx;
 }
 
-.show-address .name-tel {
+.show-address .address-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin: 60rpx 0;
+}
+
+.show-address .address-content {
+  flex: 1;
+  margin-left: 20rpx;
+}
+
+.show-address .address-content .name-tel {
   font-size: 28rpx;
   color: #000;
   padding: 30rpx 0 20rpx 0;
 }
 
-.show-address .addr-text {
+.show-address .address-content .addr-text {
   font-size: 24rpx;
   color: #888;
   padding-bottom: 34rpx;
@@ -53,6 +67,34 @@
 form {
   width: 100%;
 }
+
+.hotel-box {
+  width: 100%;
+  background-color: #fff;
+  margin-bottom: 20rpx;
+}
+
+.hotel-box .row-box {
+  width: 720rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 24rpx 0 24rpx 30rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.hotel-box .row-label {
+  font-size: 28rpx;
+  color: #000;
+}
+
+
+.hotel-box .right-text {
+  font-size: 28rpx;
+  color: #000;
+}
+
 
 .goods-list {
   width: 100%;
@@ -66,14 +108,14 @@ form {
   padding: 30rpx 0 25rpx 30rpx;
 }
 
-.goods-list  .a-goods {
+.goods-list .a-goods {
   width: 720rpx;
   display: flex;
   border-top: 1px solid #eee;
   padding: 30rpx 30rpx 30rpx 0;
 }
 
-.goods-list  .a-goods .img-box {
+.goods-list .a-goods .img-box {
   width: 160rpx;
   height: 160rpx;
   overflow: hidden;
@@ -87,7 +129,7 @@ form {
   height: 160rpx;
 }
 
-.goods-list  .a-goods .text-box {
+.goods-list .a-goods .text-box {
   width: 510rpx;
   box-sizing: border-box;
   padding-top: 10rpx;
@@ -205,7 +247,7 @@ form {
   border-radius: 0;
 }
 
-.jiesuan-box  .left-price {
+.jiesuan-box .left-price {
   display: flex;
   width: 500rpx;
   justify-content: flex-end;

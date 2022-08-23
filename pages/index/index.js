@@ -6,18 +6,18 @@ var util = require('../../utils/util.js')
 import event from '../../utils/event'
 
 Page({
-	data: {
-		indicatorDots: true,
-		autoplay: true,
-		interval: 6000,
-		duration: 800,
-		swiperCurrent: 0,
-		iphone:false,
-		loadingHidden: false, // loading
-		wxlogin: true,
-		loadingMoreHidden: true,
-		showSearch: true,
-    goods:[],
+  data: {
+    indicatorDots: true,
+    autoplay: true,
+    interval: 6000,
+    duration: 800,
+    swiperCurrent: 0,
+    iphone: false,
+    loadingHidden: false, // loading
+    wxlogin: true,
+    loadingMoreHidden: true,
+    showSearch: true,
+    goods: [],
     //语言 - begin
     language: '',
     languages: [],
@@ -27,13 +27,13 @@ Page({
     currencys: [],
     currencyCodes: [],
     currencyIndex: 0,
-	},
-	onShow(){
-		var that = this
-		
-		//获取购物车商品数量
-		app.getShopCartNum()
-	},
+  },
+  onShow() {
+    var that = this
+
+    //获取购物车商品数量
+    app.getShopCartNum()
+  },
   // 语言 
   changeLanguage(e) {
     let index = e.detail.value;
@@ -45,7 +45,7 @@ Page({
     wx.T.setLocaleByIndex(index);
     // 设置language变量（翻译Object）
     this.setLanguage();
-    
+
     // 写入Storage
     var fecshop_lang = wx.T.getCodeByIndex(index);
     wx.setStorageSync('fecshop-lang', fecshop_lang);
@@ -60,7 +60,7 @@ Page({
       language: wx.T.getLanguage()
     });
   },
-  loadHomeData: function() {
+  loadHomeData: function () {
     var that = this;
     //4个热销广告位
     wx.request({
@@ -86,7 +86,7 @@ Page({
           // 货币
           that.initCurrency(res.data.data.currency)
 
-          console.log(res.data.data.products)
+          // console.log(res.data.data.products)
           app.saveReponseHeader(res);
         }
       }
@@ -132,9 +132,9 @@ Page({
     wx.setStorageSync('fecshop-currency', fecshop_currency);
     this.loadHomeData();
   },
-  
-	onLoad: function() {
-		var that = this;
+
+  onLoad: function () {
+    var that = this;
     // 语言
     // 设置picker的语言选项
     that.setData({
@@ -150,88 +150,88 @@ Page({
     wx.T.setLocaleByIndex(wx.T.langIndex);
     // 语言 - 结束
 
-		app.fadeInOut(this,'fadeAni',0)
-		if (app.globalData.iphone == true) {
-			that.setData({
-				iphone: true
-			})
-		}
+    app.fadeInOut(this, 'fadeAni', 0)
+    if (app.globalData.iphone == true) {
+      that.setData({
+        iphone: true
+      })
+    }
     // ajax请求
     that.loadHomeData();
-	},
-	swiperchange: function(e) {
-		this.setData({
-			swiperCurrent: e.detail.current
-		})
-	},
-	toDetailsTap: function(e) {
-		wx.navigateTo({
-			url: "/pages/goods-detail/goods-detail?id=" + e.currentTarget.dataset.id
-		})
-	},
-	tapBanner: function(e) {
-		if (e.currentTarget.dataset.id != 0) {
-			wx.navigateTo({
-				url: "/pages/goods-detail/goods-detail?id=" + e.currentTarget.dataset.id
-			})
-		}
-	},
-	tapSales: function (e) {
-	  if (e.currentTarget.dataset.id != 0) {
-	    wx.navigateTo({
-	      url: e.currentTarget.dataset.id
-	    })
-	  }
-	},
-	userlogin: function (e) {
-	  var that = this;
-	  var iv = e.detail.iv;
-	  var encryptedData = e.detail.encryptedData;
-	  wx.login({
-	    success: function (wxs) {
-	      wx.request({
-	        url: app.globalData.urls + '/user/wxapp/register/complex',
-	        data: {
-	          code: wxs.code,
-	          encryptedData: encryptedData,
-	          iv: iv
-	        },
-	        success: function (res) {
-	          if (res.data.code != 0) {
-	            wx.showModal({
-	              title: '温馨提示',
-	              content: '需要您的授权，才能正常使用哦～',
-	              showCancel: false,
-	              success: function (res) { }
-	            })
-	          } else {
-	            that.setData({ wxlogin: true })
-	            app.login();
-	            wx.showToast({
-	              title: '授权成功',
-	              duration: 2000
-	            })
-	            app.globalData.usinfo = 1;
-	            wx.showTabBar();
-	          }
-	        }
-	      })
-	    }
-	  })
-	},
-	onPageScroll: function(t) {
-		if(t.scrollTop >= 180){
-			wx.setNavigationBarColor({
-				frontColor: '#000000',
-				backgroundColor: '#ffffff'
-			})
-			app.fadeInOut(this,'fadeAni',1)
-		}else{
-			wx.setNavigationBarColor({
-				frontColor: '#ffffff',
-				backgroundColor: '#ffffff'
-			})
-			app.fadeInOut(this,'fadeAni',0)
-		}
-	}
+  },
+  swiperchange: function (e) {
+    this.setData({
+      swiperCurrent: e.detail.current
+    })
+  },
+  toDetailsTap: function (e) {
+    wx.navigateTo({
+      url: "/pages/goods-detail/goods-detail?id=" + e.currentTarget.dataset.id
+    })
+  },
+  tapBanner: function (e) {
+    if (e.currentTarget.dataset.id != 0) {
+      wx.navigateTo({
+        url: "/pages/goods-detail/goods-detail?id=" + e.currentTarget.dataset.id
+      })
+    }
+  },
+  tapSales: function (e) {
+    if (e.currentTarget.dataset.id != 0) {
+      wx.navigateTo({
+        url: e.currentTarget.dataset.id
+      })
+    }
+  },
+  userlogin: function (e) {
+    var that = this;
+    var iv = e.detail.iv;
+    var encryptedData = e.detail.encryptedData;
+    wx.login({
+      success: function (wxs) {
+        wx.request({
+          url: app.globalData.urls + '/user/wxapp/register/complex',
+          data: {
+            code: wxs.code,
+            encryptedData: encryptedData,
+            iv: iv
+          },
+          success: function (res) {
+            if (res.data.code != 0) {
+              wx.showModal({
+                title: '温馨提示',
+                content: '需要您的授权，才能正常使用哦～',
+                showCancel: false,
+                success: function (res) { }
+              })
+            } else {
+              that.setData({ wxlogin: true })
+              app.login();
+              wx.showToast({
+                title: '授权成功',
+                duration: 2000
+              })
+              app.globalData.usinfo = 1;
+              wx.showTabBar();
+            }
+          }
+        })
+      }
+    })
+  },
+  onPageScroll: function (t) {
+    if (t.scrollTop >= 180) {
+      wx.setNavigationBarColor({
+        frontColor: '#000000',
+        backgroundColor: '#ffffff'
+      })
+      app.fadeInOut(this, 'fadeAni', 1)
+    } else {
+      wx.setNavigationBarColor({
+        frontColor: '#ffffff',
+        backgroundColor: '#ffffff'
+      })
+      app.fadeInOut(this, 'fadeAni', 0)
+    }
+  }
 })

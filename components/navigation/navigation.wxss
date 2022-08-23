@@ -2,16 +2,19 @@
   width: 46rpx;
   height: 8rpx;
 }
+
 .loading-wrap {
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 20rpx;
-  }
-.loading-wrap image {
+}
+
+.loading-wrap .loading-gif {
   background-color: transparent;
 }
+
 .header {
   display: flex;
   align-items: center;
@@ -20,13 +23,16 @@
   width: 100%;
   background-color: #FFF;
   z-index: 99999;
-	box-shadow: 0 1rpx 3rpx #D7D7D7;
+  box-shadow: 0 1rpx 3rpx #D7D7D7;
 }
+
 .header .line {
   border-left: 1rpx solid #D7D7D7;
   height: 36rpx;
 }
-.header .back, .header .home {
+
+.header .back,
+.header .home {
   height: 32rpx;
   width: 40%;
   height: 100%;
@@ -34,6 +40,7 @@
   align-items: center;
   justify-content: center;
 }
+
 .header .title-bar {
   display: flex;
   align-items: center;
@@ -45,7 +52,8 @@
   margin-left: 14rpx;
   padding: 0 14rpx;
 }
-.header .title-bar  image {
+
+.header .title-bar .title-bar-icon {
   width: 32rpx;
   height: 32rpx;
   background: transparent;
@@ -58,28 +66,31 @@
   font-size: 38rpx;
   transform: translateX(-50%);
 }
-.header .search-box{
-	/* border: 1px solid #eee; */
+
+.header .search-box {
+  /* border: 1px solid #eee; */
   border-radius: 27px;
-	background: hsla(0, 0%, 100%, .6);
-	height: 32px;
-	width: 355rpx;
-	background: #f7f7f7;
-	margin-left: 20rpx;
-	display: flex;
-	justify-content: flex-start;
-	align-items: center;
+  background: hsla(0, 0%, 100%, .6);
+  height: 32px;
+  width: 355rpx;
+  background: #f7f7f7;
+  margin-left: 20rpx;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
-.header .search-box text{
-	height: 30px;
-	line-height: 30px;
-	color: #d1d1d1;
-	/* padding-left: 14px; */
-	font-size: 26rpx;
-	margin-left: 5rpx;
+
+.header .search-box .search-content {
+  height: 30px;
+  line-height: 30px;
+  color: #d1d1d1;
+  /* padding-left: 14px; */
+  font-size: 26rpx;
+  margin-left: 5rpx;
 }
-.header .search-box image{
-	height: 34rpx;
-	width: 34rpx;
-	margin-left: 14px;
+
+.header .search-box .search-icon {
+  height: 34rpx;
+  width: 34rpx;
+  margin-left: 14px;
 }

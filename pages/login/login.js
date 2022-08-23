@@ -45,7 +45,7 @@ Page({
     //this.initCategory();
   },
   // 
-  loginAccount: function(){
+  loginAccount: function () {
     var that = this;
     wx.showLoading({
       title: 'loading...',
@@ -64,7 +64,7 @@ Page({
           //wx.navigateTo({
           //  url: "/pages/my/my"
           //})
-        } else if (res.data.code == '200')  {  // 如果没有登陆，则进行微信登陆，获取code
+        } else if (res.data.code == '200') {  // 如果没有登陆，则进行微信登陆，获取code
           that.wxLogin()
         }
         app.saveReponseHeader(res);
@@ -73,11 +73,11 @@ Page({
 
 
   },
-  wxLogin: function(){
+  wxLogin: function () {
     var that = this;
 
     let msg = that.data.language.logging_in;
-    if (that.data.reRequestCount>0){
+    if (that.data.reRequestCount > 0) {
       msg = that.data.language.retrying + that.data.reRequestCount;
     }
 
@@ -114,7 +114,7 @@ Page({
               //})
             } else { // 其他的失败情况，重新进行登陆操作，最大5次
               // 如果获取微信数据失败，则重复获取，最大5次
-              
+
               var reRequestCount = that.data.reRequestCount;
               that.setData({
                 reRequestCount: reRequestCount + 1,
@@ -146,7 +146,7 @@ Page({
 
   tabFun: function (e) {
     var _datasetId = e.target.dataset.id;
-    if(!_datasetId){
+    if (!_datasetId) {
       return
     }
     var _obj = {};
@@ -179,11 +179,11 @@ Page({
     that.bindSave(email, password, 2)
   },
   // 判断邮箱格式
-  validateEmail : function (email) {
+  validateEmail: function (email) {
     var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
     return myreg.test(email)
   },
-  bindSave: function(email, password, isBindNew){
+  bindSave: function (email, password, isBindNew) {
     var that = this;
     if (email == "") {
       wx.showModal({
@@ -193,7 +193,7 @@ Page({
       })
       return
     }
-    if (!that.validateEmail(email)){
+    if (!that.validateEmail(email)) {
       wx.showModal({
         title: '提示',
         content: '邮箱格式不正确',
@@ -209,7 +209,7 @@ Page({
       })
       return
     }
-    
+
     if (password.length < 6) {
       wx.showModal({
         title: '提示',

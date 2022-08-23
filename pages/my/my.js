@@ -4,16 +4,16 @@ var util = require('../../utils/util.js')
 import event from '../../utils/event'
 
 Page({
-	data: {
-    balance:0,
-    freeze:0,
-    score:0,
-    score_sign_continuous:0,
+  data: {
+    balance: 0,
+    freeze: 0,
+    score: 0,
+    score_sign_continuous: 0,
     //语言 - begin
     language: '',
     //语言 - end
     tabClass: ["", "", "", "", ""],
-    logged:true,
+    logged: true,
   },
   // 语言 
   // 设置language变量（翻译Object）
@@ -34,7 +34,7 @@ Page({
     //this.initCartInfo()
   },
 
-  onLoad: function () {
+  onLoad: function (query) {
     var that = this;
     // 语言
     // 设置当前页面的language变量 - 每个页面都要有
@@ -43,6 +43,10 @@ Page({
     // 设置当前页面的language Index - 每个页面都要有
     wx.T.setLocaleByIndex(wx.T.langIndex);
     // 语言 - 结束
+    const hotelId = decodeURIComponent(query.hotelId) // 获取到二维码原始链接内容
+    const hotelName = decodeURIComponent(query.hotelName)
+    const hotelRoom = decodeURIComponent(query.hotelRoom)
+    app.saveHotelInfo({ hotelId, hotelName, hotelRoom });
   },
   loginAccount: function (jumpLogin) {
     var that = this;
@@ -61,12 +65,12 @@ Page({
           that.setData({
             logged: false
           })
-          if (jumpLogin){
+          if (jumpLogin) {
             wx.navigateTo({
               url: "/pages/login/login"
             })
           }
-        }else{
+        } else {
           that.setData({
             logged: true
           })
@@ -74,13 +78,13 @@ Page({
       }
     });
   },
-  onReady(){
+  onReady() {
     // 发起登录验证
     this.loginAccount(true)
   },
   onShow() {
     this.loginAccount(false)
-  },	
+  },
   getUserApiInfo: function () {
     var that = this;
     wx.request({
@@ -147,20 +151,20 @@ Page({
       }
     })
   },
-	getUserInfo: function (cb) {
-      var that = this
-      wx.login({
-        success: function () {
-          wx.getUserInfo({
-            success: function (res) {
-              that.setData({
-                userInfo: res.userInfo
-              });
-            }
-          })
-        }
-      })
-},
+  getUserInfo: function (cb) {
+    var that = this
+    wx.login({
+      success: function () {
+        wx.getUserInfo({
+          success: function (res) {
+            that.setData({
+              userInfo: res.userInfo
+            });
+          }
+        })
+      }
+    })
+  },
   scoresign: function () {
     var that = this;
     wx.request({
@@ -182,7 +186,7 @@ Page({
       }
     })
   },
-  relogin:function(){
+  relogin: function () {
     var that = this;
     wx.authorize({
       scope: 'scope.userInfo',
@@ -200,15 +204,15 @@ Page({
           }
         })
       },
-      fail(res){
+      fail(res) {
         //console.log(res);
         wx.openSetting({});
       }
     })
   },
-	score: function () {
-	  wx.navigateTo({
-	    url: "/pages/score/score"
-	  })
-	},
+  score: function () {
+    wx.navigateTo({
+      url: "/pages/score/score"
+    })
+  },
 })
