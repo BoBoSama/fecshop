@@ -172,7 +172,7 @@ App({
 		if (fecshop_access_token) {
 			headers['access-token'] = fecshop_access_token;
 		}
-		console.log(headers);
+		// console.log(headers);
 
 		return headers;
 	},
@@ -196,7 +196,7 @@ App({
 			headers['access-token'] = fecshop_access_token;
 		}
 		headers['Content-Type'] = 'application/x-www-form-urlencoded';
-		console.log(headers);
+		// console.log(headers);
 
 		return headers;
 	},
@@ -250,8 +250,7 @@ App({
 			success: function (res) {
 				if (res.data) {
 					if (res.data.shopNum > 0) {
-						console.log("res.data.shopNum")
-						console.log(res.data.shopNum)
+						console.log("res.data.shopNum:", res.data.shopNum)
 						wx.setTabBarBadge({
 							index: 2,
 							text: '' + res.data.shopNum + ''

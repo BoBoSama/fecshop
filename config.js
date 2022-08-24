@@ -6,8 +6,8 @@ var config = {
 	//'subDomain': 'fireshop',
 
 	//      https://api.it120.cc/fireshop
-	'url': 'http://appserver.fecshop.com/',
-	// 'url': 'https://shopserver.nbjinyi.net:81',
+	// 'url': 'http://appserver.fecshop.com',
+	'url': 'https://shopserver.nbjinyi.net:81',
 	'subDomain': '',
 
 	// 默认语言

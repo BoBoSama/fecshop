@@ -51,7 +51,7 @@ Page({
   onLoad: function () {
     var that = this;
     if (app.globalData.iphone == true) { that.setData({ iphone: 'iphone' }) }
-    
+
     that.initEleWidth();
     // 语言
     // 设置当前页面的language变量 - 每个页面都要有
@@ -93,7 +93,7 @@ Page({
     });
     this.loadCartInfo()
   },
-  loadCartInfo: function(){
+  loadCartInfo: function () {
     var that = this;
     wx.request({
       url: app.globalData.urls + '/checkout/cart/index',
@@ -171,7 +171,7 @@ Page({
   onShow: function () {
     var that = this;
     that.loadCartInfo();
-    
+
   },
   toIndexPage: function () {
     wx.switchTab({
@@ -302,7 +302,7 @@ Page({
         break;
       }
     }
-    
+
     return allSelect;
   },
   noSelect: function () {
@@ -315,8 +315,8 @@ Page({
       }
     }
 
-    
-    
+
+
     if (noSelect == list.length) {
       return true;
     } else {
@@ -353,9 +353,8 @@ Page({
 
     this.setGoodsList(this.getSaveHide(), this.totalPrice(), !currentAllSelect, this.noSelect(), list);
 
-    console.log("currentAllSelect")
-    console.log(currentAllSelect)
-    
+    console.log("currentAllSelect:", currentAllSelect)
+
     var checked = !currentAllSelect ? 1 : 0;
     var that = this;
     wx.request({
@@ -372,7 +371,7 @@ Page({
         }
       }
     })
-    
+
   },
   // 减少个数
   jiaBtnTap: function (e) {
@@ -471,10 +470,10 @@ Page({
       return !curGoods.active;
     });
     this.setGoodsList(this.getSaveHide(), this.totalPrice(), this.allSelect(), this.noSelect(), list);
-		
-    
+
+
     //更新tabbar购物车数字角标
-		app.getShopCartNum()
+    app.getShopCartNum()
   },
   toPayOrder: function () {
     this.navigateToPayOrder();
