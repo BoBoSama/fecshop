@@ -74,21 +74,20 @@ page {
   width: 870rpx;
   box-sizing: border-box;
   transition: margin-left 0.2s ease-in-out;
-  background: url(http://img.fecshop.com/wx/circle@noselected.png) no-repeat 30rpx center;
-  background-size: 34rpx auto;
-}
-
-.a-goods-conts.active {
-  background: url(http://img.fecshop.com/wx/circle@selected.png) no-repeat 30rpx center;
-  background-size: 34rpx auto;
 }
 
 .goods-info {
   display: flex;
   justify-content: space-between;
-  padding: 30rpx 0 30rpx 70rpx;
+  align-items: center;
+  padding: 30rpx 0 30rpx 0;
   width: 720rpx;
   box-sizing: border-box;
+}
+
+.goods-info .selected-box {
+  width: 34rpx;
+  height: 34rpx;
 }
 
 .goods-info .img-box {
@@ -236,15 +235,17 @@ page {
 }
 
 .jiesuan-box .all-selected {
-  padding-left: 90rpx;
+  width: 100rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 30rpx;
   color: #000;
-  background: url(http://img.fecshop.com/wx/circle@noselected.png) no-repeat 30rpx center;
-  background-size: 34rpx auto;
 }
 
-.jiesuan-box .all-selected.active {
-  background: url(http://img.fecshop.com/wx/circle@selected.png) no-repeat 30rpx center;
-  background-size: 34rpx auto;
+.jiesuan-box .all-selected .selected-box {
+  width: 34rpx;
+  height: 34rpx;
 }
 
 .jiesuan-box .total {

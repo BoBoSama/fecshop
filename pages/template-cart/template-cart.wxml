@@ -9,8 +9,10 @@
 
 	<view class="goodsList">
 		<view class="a-gooods" wx:for="{{list}}" wx:key="index">
-			<view data-itemid="{{item.item_id}}" class="a-goods-conts {{item.active? 'active':''}}" bindtap="selectTap" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index="{{index}}" style="{{item.left}}">
+			<view data-itemid="{{item.item_id}}" class="a-goods-conts" bindtap="selectTap" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index="{{index}}" style="{{item.left}}">
 				<view class="goods-info">
+					<image wx:if="{{item.active}}" src="../../images/circle_selected.png" class="selected-box"></image>
+					<image wx:else src="../../images/circle_noselected.png" class="selected-box"></image>
 					<view class="img-box">
 						<image src="{{item.pic}}" class="img" />
 					</view>
@@ -34,7 +36,11 @@
 	</view>
 	<view class="jiesuan-box">
 		<view class="left-price">
-			<view class="all-selected  {{allSelect?'active':''}}" bindtap="bindAllSelect">{{language.select_all}}</view>
+			<view class="all-selected" bindtap="bindAllSelect">
+				<image wx:if="{{allSelect}}" src="../../images/circle_selected.png" class="selected-box"></image>
+				<image wx:else src="../../images/circle_noselected.png" class="selected-box"></image>
+				<text>{{language.select_all}}</text>
+			</view>
 			<view class="total" hidden="{{noSelect}}">{{language.grand_total}} ：{{currencySymbol}} {{totalPrice}}</view>
 		</view>
 		<view class="to-pay-btn {{noSelect?'no-select':''}}" hidden="{{!saveHidden}}" bindtap="toPayOrder">{{language.place_order}}</view>
