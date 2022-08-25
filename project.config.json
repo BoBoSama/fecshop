@@ -104,6 +104,13 @@
 					"pathName": "pages/goods-detail/goods-detail",
 					"query": "id=46",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "分类",
+					"pathName": "pages/cate/cate",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

@@ -13,6 +13,7 @@ Page({
     swiperCurrent: 0,
     selectCurrent: 0,
     activeCategoryId: 0,
+    activeCategoryIndex: 0,
     loadingMoreHidden: true,
     search: true,
     nonehidden: true,
@@ -20,11 +21,9 @@ Page({
     language: '',
     //语言 - end
     searchidden: true,
-    banner:{},
-    categoriesListAll:[],
-    categorieslist:[],
-    categories:[]
-
+    categoriesListAll: [],
+    categorieslist: [],
+    categories: []
   },
   // 语言 
   // 设置language变量（翻译Object）
@@ -42,7 +41,8 @@ Page({
   },
   tabClick: function (e) {
     this.setData({
-      activeCategoryId: e.currentTarget.id
+      activeCategoryId: e.currentTarget.dataset.id,
+      activeCategoryIndex: e.currentTarget.dataset.index,
     });
     this.getGoodsList(this.data.activeCategoryId);
   },
@@ -57,7 +57,7 @@ Page({
       swiperCurrent: e.detail.current
     })
   },
-  search: function(e){
+  search: function (e) {
     var that = this
     wx.request({
       url: app.globalData.urls + '/shop/goods/list',
@@ -75,7 +75,7 @@ Page({
             searchidden: false,
             nonehidden: true
           });
-        }else{
+        } else {
           that.setData({
             searchidden: true,
             nonehidden: false
@@ -83,15 +83,15 @@ Page({
         }
       }
     })
-    
+
   },
-  searchfocus: function(){
+  searchfocus: function () {
     this.setData({
       search: false,
       searchinput: true
     })
   },
-  searchclose: function(){
+  searchclose: function () {
     this.setData({
       search: true,
       searchinput: false
@@ -128,13 +128,11 @@ Page({
         if (res.data.code == 200) {
           var categories = res.data.data.categories;
           var categorieslist = res.data.data.categorieslist;
-          var banners = res.data.data.banners
           wx.hideLoading();
           that.setData({
             categories: categories,
             categoriesListAll: categorieslist,
             categorieslist: categorieslist,
-            banners: banners,
             activeCategoryId: 0
           });
         }
@@ -164,14 +162,17 @@ Page({
     });
 
   },
-  toDetailsTap: function (e){
-    wx.navigateTo({
-      url: "/pages/goods-detail/goods-detail?id=" + e.currentTarget.dataset.id
-    })
-    this.setData({
-      search: true,
-      searchinput: false
-    })
+  toDetailsTap: function (e) {
+    const productId = e.currentTarget.dataset.id
+    if (productId) {
+      wx.navigateTo({
+        url: "/pages/goods-detail/goods-detail?id=" + e.currentTarget.dataset.id
+      })
+      this.setData({
+        search: true,
+        searchinput: false
+      })
+    }
   },
   onShow: function () {
     var that = this;

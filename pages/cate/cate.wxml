@@ -2,7 +2,7 @@
 <view class="container">
 	<view class="type-container-boxx">
 		<view class="type-container">
-			<view wx:for-items="{{categories}}" wx:key="id" class="type-box" bindtap="tabClick" id="{{item.id}}">
+			<view wx:for-items="{{categories}}" wx:key="id" class="type-box" bindtap="tabClick" data-id="{{item.id}}" data-index="{{index}}">
 				<view class="type-navbar-item {{activeCategoryId == item.id ? 'type-item-on' : ''}}">
 					{{item.name}}
 				</view>
@@ -10,7 +10,8 @@
 		</view>
 		<view class="type-list">
 			<view class="swiper-container">
-				<swiper class="swiper_box" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
+				<image class="swiper_box" src="{{categories[activeCategoryIndex].bannerUrl}}" bindtap="toDetailsTap" data-id="{{categories[activeCategoryIndex].productId}}"></image>
+				<!-- <swiper class="swiper_box" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange">
 					<block wx:for="{{banners}}" wx:key="id">
 						<swiper-item>
 							<image bindtap="toDetailsTap" data-id="{{item.productId}}" src="{{item.picUrl}}_m" class="slide-image" mode="widthFix" />
@@ -21,7 +22,7 @@
 					<block wx:for="{{banners}}" wx:key="unique">
 						<view class="dot{{index == swiperCurrent ? ' active' : ''}}"></view>
 					</block>
-				</view>
+				</view> -->
 			</view>
 			<view class="type-menu">
 				<view class="type-level-box" wx:for-items="{{categorieslist}}" wx:key="id">
