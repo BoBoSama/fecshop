@@ -1,12 +1,6 @@
 <!--index.wxml-->
 <navigation id='Navigation' show-search='{{showSearch}}' class="fix-top" animation="{{fadeAni}}"></navigation>
-
-
-
 <view class="container">
-
-
-
 	<view class="swiper-container">
 		<swiper class="swiper_box" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" bindchange="swiperchange" circular="circular">
 			<block wx:for="{{banners}}" wx:key="id">
@@ -29,7 +23,7 @@
 			</view>
 		</view>
 		<view class="index-hot flex">
-			<block wx:for="{{hot}}" wx:key="hot">
+			<block wx:for="{{hot}}" wx:key="id">
 				<navigator hover-class="none" class="hot-item" url="{{item.linkUrl}}">
 					<image src="{{item.picUrl}}"></image>
 				</navigator>
